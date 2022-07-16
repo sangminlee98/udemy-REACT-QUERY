@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import { IPost } from './Posts';
 
 interface IPostDetailProps {
@@ -9,20 +10,20 @@ interface IComments {
   body: string;
 }
 
-// async function fetchComments(postId: number) {
-//   const response = await fetch(
-//     `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
-//   );
-//   return response.json();
-// }
+async function fetchComments(postId: number) {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+  );
+  return response.json();
+}
 
-// async function deletePost(postId: number) {
-//   const response = await fetch(
-//     `https://jsonplaceholder.typicode.com/postId/${postId}`,
-//     { method: "DELETE" }
-//   );
-//   return response.json();
-// }
+async function deletePost(postId: number) {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/postId/${postId}`,
+    { method: "DELETE" }
+  );
+  return response.json();
+}
 
 // async function updatePost(postId: number) {
 //   const response = await fetch(
@@ -34,7 +35,7 @@ interface IComments {
 
 export function PostDetail({ post }: IPostDetailProps) {
   // replace with useQuery
-  const data: IComments[] = [];
+  const {data, isLoading, isError}  = useQuery<IComments[]>(['comments', post.id], () => fetchComments(post.id));
 
   return (
     <>
@@ -42,11 +43,20 @@ export function PostDetail({ post }: IPostDetailProps) {
       <button>Delete</button> <button>Update title</button>
       <p>{post.body}</p>
       <h4>Comments</h4>
-      {data.map((comment) => (
-        <li key={comment.id}>
-          {comment.email}: {comment.body}
-        </li>
-      ))}
+      {
+        isError && <div>ERROR!</div>
+      }
+      {
+        isLoading ?(
+          <div>Loading...</div>
+        ) : (
+          data?.map((comment) => (
+            <li key={comment.id}>
+              {comment.email}: {comment.body}
+            </li>
+          ))
+        )
+      }
     </>
   );
 }

@@ -22,7 +22,7 @@ function Posts() {
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
   // replace with useQuery
-  const {data, isLoading, isError} = useQuery<IPost[]>('posts', fetchPosts, {staleTime: 2000});
+  const {data, isLoading, isError} = useQuery<IPost[]>('posts', fetchPosts);
 
   if(isError) return (<h3>ERROR!</h3>)
   if(isLoading) return (<h3>Loading...</h3>)
