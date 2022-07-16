@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { useQuery } from 'react-query';
 
 import { PostDetail } from "./PostDetail";
+export interface IPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
 const maxPostPage = 10;
 
 async function fetchPosts() {
@@ -10,17 +17,19 @@ async function fetchPosts() {
   return response.json();
 }
 
-export function Posts() {
+function Posts() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
   // replace with useQuery
-  const data = [];
+  const {data, isLoading, isError} = useQuery<IPost[]>('posts', fetchPosts, {staleTime: 2000});
 
+  if(isError) return (<h3>ERROR!</h3>)
+  if(isLoading) return (<h3>Loading...</h3>)
   return (
     <>
       <ul>
-        {data.map((post) => (
+        {data?.map((post) => (
           <li
             key={post.id}
             className="post-title"
@@ -44,3 +53,5 @@ export function Posts() {
     </>
   );
 }
+
+export default Posts
