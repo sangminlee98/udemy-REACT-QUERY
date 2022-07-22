@@ -1,5 +1,5 @@
-import { useQuery } from 'react-query';
-import { IPost } from './Posts';
+import { useQuery } from "@tanstack/react-query";
+import { IPost } from "./Posts";
 
 interface IPostDetailProps {
   post: IPost;
@@ -35,7 +35,10 @@ async function deletePost(postId: number) {
 
 export function PostDetail({ post }: IPostDetailProps) {
   // replace with useQuery
-  const {data, isLoading, isError}  = useQuery<IComments[]>(['comments', post.id], () => fetchComments(post.id));
+  const { data, isLoading, isError } = useQuery<IComments[]>(
+    ["comments", post.id],
+    () => fetchComments(post.id)
+  );
 
   return (
     <>
@@ -43,20 +46,16 @@ export function PostDetail({ post }: IPostDetailProps) {
       <button>Delete</button> <button>Update title</button>
       <p>{post.body}</p>
       <h4>Comments</h4>
-      {
-        isError && <div>ERROR!</div>
-      }
-      {
-        isLoading ?(
-          <div>Loading...</div>
-        ) : (
-          data?.map((comment) => (
-            <li key={comment.id}>
-              {comment.email}: {comment.body}
-            </li>
-          ))
-        )
-      }
+      {isError && <div>ERROR!</div>}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        data?.map((comment) => (
+          <li key={comment.id}>
+            {comment.email}: {comment.body}
+          </li>
+        ))
+      )}
     </>
   );
 }
