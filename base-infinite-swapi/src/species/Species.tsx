@@ -1,4 +1,4 @@
-export function Species({ name, language, averageLifespan }) {
+export function Species({ name, language, averageLifespan }: any) {
   return (
     <li>
       {name}

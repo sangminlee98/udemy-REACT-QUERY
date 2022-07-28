@@ -1,4 +1,4 @@
-export function Person({ name, hairColor, eyeColor }) {
+export function Person({ name, hairColor, eyeColor }: any) {
   return (
     <li>
       {name}
