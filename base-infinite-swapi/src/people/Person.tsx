@@ -1,4 +1,9 @@
-export function Person({ name, hairColor, eyeColor }: any) {
+interface IPersonProps {
+  name: string;
+  hairColor: string;
+  eyeColor: string;
+}
+export function Person({ name, hairColor, eyeColor }: IPersonProps) {
   return (
     <li>
       {name}
