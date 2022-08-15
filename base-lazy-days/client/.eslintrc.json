@@ -52,7 +52,7 @@
     "import/extensions": ["error", "never"],
     "import/prefer-default-export": 0,
     "import/no-anonymous-default-export": 0,
-    "import/no-unresolved": 2,
+    "import/no-unresolved": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "sort-imports": "off",

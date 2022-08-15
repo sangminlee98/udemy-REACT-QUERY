@@ -47,6 +47,7 @@ export function InfiniteSpecies() {
     isLoading,
     isFetching,
     isError,
+    
     error,
   } = useInfiniteQuery<SpeciesData, Error>(
     ["sw-species"],
