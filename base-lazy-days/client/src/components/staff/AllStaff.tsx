@@ -9,7 +9,6 @@ export function AllStaff(): ReactElement {
   // replace with data from React Query
   const { staff, filter, setFilter } = useStaff();
   const treatments = useTreatments();
-
   return (
     <Box>
       <Heading mt={10} align="center">
